@@ -11,7 +11,8 @@ function CreateChat() {
         localStorage.setItem('phoneNumber', target);
     }
 
-    function createChatClick() {
+    function createChatClick(event) {
+        event.preventDefault()
         if (localStorage.getItem('phoneNumber')) {
             navigate('/');
         }

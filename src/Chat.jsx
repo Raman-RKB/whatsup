@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchSendmessage } from './ApiService'
+import { fetchSendMessage, fetchReсeiveMessage } from './ApiService'
 
 function Chat() {
   const [textMessage, setTextMessage] = useState();
@@ -13,9 +13,21 @@ function Chat() {
     setTextMessage(target);
   }
 
-  function sendMessage() {
+  function reсeiveMessage(event) {
+    event.preventDefault()
+    fetchReсeiveMessage()
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }
+
+  function sendMessage(event) {
+    event.preventDefault()
     textMessage ?
-      fetchSendmessage(textMessage)
+      fetchSendMessage(textMessage)
         .then(response => {
           console.log(response)
         })
@@ -46,6 +58,7 @@ function Chat() {
           <label htmlFor="message">Message:</label>
           <input type="text" id="message" name="message" onChange={textInsert} required />
           <button type="submit" id="send-message" onClick={sendMessage}>Send</button>
+          <button className="temporaryButton" onClick={reсeiveMessage}>Reсeive</button>
         </form>
       </div>
     </div>
