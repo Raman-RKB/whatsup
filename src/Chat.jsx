@@ -19,16 +19,19 @@ function Chat() {
   }
 
   function fetchMessages() {
+    console.log(receiptId, 'receiptId');
     fetchReсeiveMessage()
       .then(response => {
         console.log(response);
-        if (response === null) {
+        if (!response) {
           return
-        } else if (receiptId === response.receiptId) {
-          return
+        } else if (!response.body?.messageData) {
+          fetchDeleteReсeivedMessage(response.receiptId);
         } else if (response.body?.messageData && receiptId !== response.receiptId) {
+          console.log('попадает');
           setDisplayMessage(prevMessages => [...prevMessages, `RECEIVED.${response.body?.messageData.extendedTextMessageData?.text}`]);
           fetchDeleteReсeivedMessage(response.receiptId);
+          setReceiptId(response.receiptId);
         }
       })
 
