@@ -24,12 +24,12 @@ function Login() {
         event.preventDefault()
         if (idInstance && apiTokenInstance) {
             fetchReсeiveMessage(idInstance, apiTokenInstance)
-                .then(response => {
-                    if (response) {
-                        localStorage.setItem('idInstance', idInstance);
-                        localStorage.setItem('apiTokenInstance', apiTokenInstance);
-                        navigate('/create-chat')
-                    }
+                .then(() => {
+                    // if (response) {
+                    localStorage.setItem('idInstance', idInstance);
+                    localStorage.setItem('apiTokenInstance', apiTokenInstance);
+                    navigate('/create-chat')
+                    // }
                 })
                 .catch(error => {
                     console.error(error)

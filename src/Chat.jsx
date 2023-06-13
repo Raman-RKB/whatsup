@@ -6,40 +6,38 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchSendMessage, fetchReсeiveMessage, fetchDeleteReсeivedMessage } from './ApiService'
 
+function fetchMessages(setDisplayMessage) {
+  fetchReсeiveMessage()
+    .then(response => {
+      console.log(response);
+      if (!response) {
+        // setTimeout(fetchMessages, 5000);
+        return
+      } else if (!response.body?.messageData) {
+        fetchDeleteReсeivedMessage(response.receiptId);
+      } else if (response.body?.messageData) {
+        fetchDeleteReсeivedMessage(response.receiptId);
+        setDisplayMessage(prevMessages => [...prevMessages, `RECEIVED.${response.body?.messageData.extendedTextMessageData?.text}`]);
+      }
+      // setTimeout(fetchMessages, 5000);
+    })
+    .catch(error => {
+      console.error(error)
+    })
+}
+
 function Chat() {
   const [textMessage, setTextMessage] = useState();
   const [displayMessage, setDisplayMessage] = useState([]);
-  const [receiptId, setReceiptId] = useState();
+  // const [receiptId, setReceiptId] = useState();
   const navigate = useNavigate();
   const inputRef = useRef();
+
+  console.log('mount');
 
   function textInsert(event) {
     const target = event.target.value;
     setTextMessage(target);
-  }
-
-  function fetchMessages() {
-    console.log(receiptId, 'receiptId');
-    fetchReсeiveMessage()
-      .then(response => {
-        console.log(response);
-        if (!response) {
-          return
-        } else if (!response.body?.messageData) {
-          fetchDeleteReсeivedMessage(response.receiptId);
-        } else if (response.body?.messageData && receiptId !== response.receiptId) {
-          console.log('попадает');
-          setDisplayMessage(prevMessages => [...prevMessages, `RECEIVED.${response.body?.messageData.extendedTextMessageData?.text}`]);
-          fetchDeleteReсeivedMessage(response.receiptId);
-          setReceiptId(response.receiptId);
-        }
-      })
-
-      .catch(error => {
-        console.error(error)
-      })
-
-    setTimeout(fetchMessages, 5000);
   }
 
   function sendMessage(event) {
@@ -65,12 +63,9 @@ function Chat() {
   }, [])
 
   useEffect(() => {
-    fetchMessages();
+    console.log('вызывается в useEffect еще раз');
+    fetchMessages(setDisplayMessage);
   }, [])
-
-  useEffect(() => {
-    console.log(receiptId);
-  }, [receiptId])
 
   return (
     <div className="container">

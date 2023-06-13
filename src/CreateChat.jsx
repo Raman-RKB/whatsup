@@ -15,6 +15,7 @@ function CreateChat() {
 
     function createChatClick(event) {
         event.preventDefault()
+        console.log(phoneNumber);
         phoneNumber ? (
             fetchCheckPhone(phoneNumber)
                 .then(response => {
