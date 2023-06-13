@@ -3,7 +3,8 @@ const idInstance = localStorage.getItem('idInstance');
 const apiTokenInstance = localStorage.getItem('apiTokenInstance');
 const phoneNumber = localStorage.getItem('phoneNumber');
 
-export function fetchSendmessage(textmessage) {
+export function fetchSendMessage(textmessage) {
+    console.log(phoneNumber);
     return fetch(`${baseUrl}/waInstance${idInstance}/sendMessage/${apiTokenInstance}`, {
         method: 'POST',
         body: JSON.stringify({
@@ -11,5 +12,10 @@ export function fetchSendmessage(textmessage) {
             message: `${textmessage}`
         })
     })
+        .then(response => response.json())
+}
+
+export function fetchReсeiveMessage() {
+    return fetch(`${baseUrl}/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`)
         .then(response => response.json())
 }

@@ -112,3 +112,8 @@ body {
 .chat input[type="text"], .chat button[type="submit"] {
   margin-top: 10px;
 }
+
+.temporaryButton{
+height: 30px;
+margin-top: 20px;
+}

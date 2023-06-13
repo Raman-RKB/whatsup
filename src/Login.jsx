@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+//----------------------------
 function Login() {
     const [idInstance, setIdInstance] = useState();
     const [apiTokenInstance, setApiTokenInstance] = useState();
@@ -19,7 +19,8 @@ function Login() {
         setApiTokenInstance(target);
     }
 
-    function loginClick() {
+    function loginClick(event) {
+          event.preventDefault()
         if (idInstance && apiTokenInstance) {
             localStorage.setItem('idInstance', idInstance);
             localStorage.setItem('apiTokenInstance', apiTokenInstance);
