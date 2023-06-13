@@ -1,21 +1,33 @@
 import React from 'react';
 import './App.css';
-// import { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { fetchCheckPhone } from './ApiService'
 
 function CreateChat() {
+    const [phoneNumber, setPhoneNumber] = useState();
     const navigate = useNavigate();
 
     function insertPhoneNumber(event) {
         const target = event.target.value;
-        localStorage.setItem('phoneNumber', target);
+        setPhoneNumber(target);
     }
 
     function createChatClick(event) {
         event.preventDefault()
-        if (localStorage.getItem('phoneNumber')) {
-            navigate('/');
-        }
+        phoneNumber ? (
+            fetchCheckPhone(phoneNumber)
+                .then(response => {
+                    if (response.existsWhatsapp) {
+                        localStorage.setItem('phoneNumber', phoneNumber);
+                        navigate('/');
+                    } else {
+                        alert('Такого номера не существует');
+                    }
+                })
+        ) : (
+            alert('Введите номер телефона')
+        )
     }
 
     return (

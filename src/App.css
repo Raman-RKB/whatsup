@@ -69,6 +69,8 @@ body {
   margin-bottom: 10px;
   border-radius: 5px;
   border: none;
+  color: #ffffff;
+  background-color: #2a3942;
 }
 
 .chat button[type="button"], .chat button[type="submit"] {
@@ -111,9 +113,56 @@ body {
 
 .chat input[type="text"], .chat button[type="submit"] {
   margin-top: 10px;
+    border: 3px solid black;
 }
 
 .temporaryButton{
 height: 30px;
 margin-top: 20px;
+}
+
+.chatArea{
+  height: 300px;
+  border-radius: 5px;
+  border: 3px solid black;
+  background-color: #021a24;
+      display: flex;
+    flex-direction: column;
+  overflow-y: scroll;
+}
+
+  ::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+ }
+
+.sendMessageContainer{
+  max-width: 50%;
+  width: fit-content;
+  margin-left: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #005c4b;
+   border-radius: 5px;
+  padding: 5px;
+    word-wrap: break-word;
+  white-space: normal;
+  color: #ffffff; 
+}
+
+.receivedMessageContainer{
+    max-width: 50%;
+  width: fit-content;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #202c33;
+   border-radius: 5px;
+  padding: 5px;
+    word-wrap: break-word;
+  white-space: normal;
+  color: #ffffff; 
 }
