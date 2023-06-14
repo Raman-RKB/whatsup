@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { fetchReсeiveMessage } from './ApiService'
 //----------------------------
 function Login() {
     const [idInstance, setIdInstance] = useState();
@@ -20,11 +21,20 @@ function Login() {
     }
 
     function loginClick(event) {
-          event.preventDefault()
+        event.preventDefault()
         if (idInstance && apiTokenInstance) {
-            localStorage.setItem('idInstance', idInstance);
-            localStorage.setItem('apiTokenInstance', apiTokenInstance);
-            navigate('/create-chat')
+            fetchReсeiveMessage(idInstance, apiTokenInstance)
+                .then(() => {
+                    // if (response) {
+                    localStorage.setItem('idInstance', idInstance);
+                    localStorage.setItem('apiTokenInstance', apiTokenInstance);
+                    navigate('/create-chat')
+                    // }
+                })
+                .catch(error => {
+                    console.error(error)
+                    alert('Не верные данные')
+                })
         } else {
             alert('Вы ввели не все данные!');
         }
