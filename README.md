@@ -15,16 +15,16 @@ After installing dependencies, run the following command:
 This command will start the application on a local server at http://localhost:3000/.
 
 ## Technologies Used
-React
-GREEN-API
-Project Structure
-ApiService.jsx - module for working with GREEN-API
-App.css - styles for the application
-AppRoutes.jsx - application routes
-Chat.jsx - component for the chat
-CreateChat.jsx - component for creating a new chat
-GetDataFromLS.jsx - module for getting data from local storage
-Login.jsx - component for user login
-MessageContainer.jsx - component for displaying messages
-index.css - global styles for the application
-index.js - entry point of the application
+### React
+### GREEN-API
+### Project Structure
+### ApiService.jsx - module for working with GREEN-API
+### App.css - styles for the application
+### AppRoutes.jsx - application routes
+### Chat.jsx - component for the chat
+### CreateChat.jsx - component for creating a new chat
+### GetDataFromLS.jsx - module for getting data from local storage
+### Login.jsx - component for user login
+### MessageContainer.jsx - component for displaying messages
+### index.css - global styles for the application
+### index.js - entry point of the application
