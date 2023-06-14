@@ -1,0 +1,27 @@
+.sendMessageContainer{
+  max-width: 50%;
+  width: fit-content;
+  margin-left: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #005c4b;
+   border-radius: 5px;
+  padding: 5px;
+    word-wrap: break-word;
+  white-space: normal;
+  color: #ffffff; 
+}
+
+.receivedMessageContainer{
+    max-width: 50%;
+  width: fit-content;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #202c33;
+   border-radius: 5px;
+  padding: 5px;
+    word-wrap: break-word;
+  white-space: normal;
+  color: #ffffff; 
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './style/MessageContainer.css';
 import { String } from 'core-js';
 import { useState, useEffect } from 'react';
 
