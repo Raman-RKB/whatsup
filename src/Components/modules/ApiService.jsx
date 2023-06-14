@@ -11,10 +11,11 @@ export function fetchReсeiveMessage(idInstanceProps, apiTokenInstanceProps) {
 export function fetchSendMessage(textmessage) {
     const id = idInstance();
     const token = apiTokenInstance();
+    const phone = phoneNumber();
     return fetch(`${baseUrl}/waInstance${id}/sendMessage/${token}`, {
         method: 'POST',
         body: JSON.stringify({
-            chatId: `${phoneNumber}@c.us`,
+            chatId: `${phone}@c.us`,
             message: `${textmessage}`
         })
     })

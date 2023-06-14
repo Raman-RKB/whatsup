@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import Chat from "./Chat";
-import Login from "./Login";
-import CreateChat from "./CreateChat";
+import Chat from "./Components/chat/Chat";
+import Login from "./Components/login/Login";
+import CreateChat from "./Components/create-chat/CreateChat";
 
 export const AppRoutes = () => {
 

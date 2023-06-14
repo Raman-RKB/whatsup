@@ -28,3 +28,7 @@ This command will start the application on a local server at http://localhost:30
 ### MessageContainer.jsx - component for displaying messages
 ### index.css - global styles for the application
 ### index.js - entry point of the application
+
+# Please note: 
+## The GREEN API backend may not always work stably and occasionally messages in the queue may not be deleted immediately, which may result in the same message being reflected multiple times. 
+## Additionally, there may be a delay in receiving incoming messages, as the request for incoming messages is made only once every 5 seconds, and sometimes multiple requests may be necessary to receive queued messages.

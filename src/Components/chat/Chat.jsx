@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.css';
-import MessageContainer from "./MessageContainer";
+import './Style/Chat.css';
+import MessageContainer from "../modules/MessageContainer";
 
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchSendMessage, fetchReсeiveMessage, fetchDeleteReсeivedMessage } from './ApiService'
+import { fetchSendMessage, fetchReсeiveMessage, fetchDeleteReсeivedMessage } from '../modules/ApiService'
 
 function Chat() {
   const [textMessage, setTextMessage] = useState();
@@ -29,9 +29,19 @@ function Chat() {
         })
         .catch(error => {
           console.error(error)
+          alert('Ошибка, проверьте ваше подключение к интернету и введенные данные')
         })
       :
       alert('введите текст сообщения');
+  }
+
+  function changeChat() {
+    navigate('/create-chat')
+  }
+
+  function escape() {
+    localStorage.clear()
+    navigate('/login')
   }
 
   useEffect(() => {
@@ -64,9 +74,9 @@ function Chat() {
             fetchDeleteReсeivedMessage(response.receiptId);
           }
         })
-
         .catch(error => {
           console.error(error)
+          alert('Ошибка сети, проверьте ваше подключение к интернету')
         })
     }
   }, [receiptId])
@@ -94,6 +104,8 @@ function Chat() {
           </div>
           <input type="text" placeholder="Введите сообщение" ref={inputRef} onChange={textInsert} required />
           <button type="submit" id="send-message" onClick={sendMessage}>Send</button>
+          <button type="submit" id="send-message" onClick={changeChat}>Change Chat</button>
+          <button type="submit" id="send-message" onClick={escape}>Escape</button>
         </form>
       </div>
     </div>
