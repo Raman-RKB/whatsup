@@ -1,11 +1,17 @@
+import { phoneNumber, idInstance, apiTokenInstance } from "./GetDataFromLS";
 const baseUrl = 'https://api.green-api.com';
 
-const phoneNumber = localStorage.getItem('phoneNumber');
+export function fetchReсeiveMessage(idInstanceProps, apiTokenInstanceProps) {
+    const id = idInstance();
+    const token = apiTokenInstance();
+    return fetch(`${baseUrl}/waInstance${!idInstanceProps ? id : idInstanceProps}/receiveNotification/${!apiTokenInstanceProps ? token : apiTokenInstanceProps}`)
+        .then(response => response.json())
+}
 
 export function fetchSendMessage(textmessage) {
-    const idInstance = localStorage.getItem('idInstance');
-    const apiTokenInstance = localStorage.getItem('apiTokenInstance');
-    return fetch(`${baseUrl}/waInstance${idInstance}/sendMessage/${apiTokenInstance}`, {
+    const id = idInstance();
+    const token = apiTokenInstance();
+    return fetch(`${baseUrl}/waInstance${id}/sendMessage/${token}`, {
         method: 'POST',
         body: JSON.stringify({
             chatId: `${phoneNumber}@c.us`,
@@ -15,29 +21,22 @@ export function fetchSendMessage(textmessage) {
         .then(response => response.json())
 }
 
-export function fetchCheckPhone(phoneNumber) {
-    const idInstance = localStorage.getItem('idInstance');
-    const apiTokenInstance = localStorage.getItem('apiTokenInstance');
-    return fetch(`${baseUrl}/waInstance${idInstance}/checkWhatsapp/${apiTokenInstance}`, {
+export function fetchCheckPhone(phoneNumberProp) {
+    const id = idInstance();
+    const token = apiTokenInstance();
+    return fetch(`${baseUrl}/waInstance${id}/checkWhatsapp/${token}`, {
         method: 'POST',
         body: JSON.stringify({
-            phoneNumber: `${phoneNumber}`
+            phoneNumber: `${phoneNumberProp}`
         })
     })
         .then(response => response.json())
 }
 
-export function fetchReсeiveMessage(idInstanceProps, apiTokenInstanceProps) {
-    const idInstance = localStorage.getItem('idInstance');
-    const apiTokenInstance = localStorage.getItem('apiTokenInstance');
-    return fetch(`${baseUrl}/waInstance${!idInstanceProps ? idInstance : idInstanceProps}/receiveNotification/${!apiTokenInstanceProps ? apiTokenInstance : apiTokenInstanceProps}`)
-        .then(response => response.json())
-}
-
 export function fetchDeleteReсeivedMessage(receiptId) {
-    const idInstance = localStorage.getItem('idInstance');
-    const apiTokenInstance = localStorage.getItem('apiTokenInstance');
-    return fetch(`${baseUrl}/waInstance${idInstance}/deleteNotification/${apiTokenInstance}/${receiptId}`, {
+    const id = idInstance();
+    const token = apiTokenInstance();
+    return fetch(`${baseUrl}/waInstance${id}/deleteNotification/${token}/${receiptId}`, {
         method: 'DELETE'
     })
 }
