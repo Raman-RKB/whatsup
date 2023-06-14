@@ -6,34 +6,12 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchSendMessage, fetchReсeiveMessage, fetchDeleteReсeivedMessage } from './ApiService'
 
-function fetchMessages(setDisplayMessage) {
-  fetchReсeiveMessage()
-    .then(response => {
-      console.log(response);
-      if (!response) {
-        // setTimeout(fetchMessages, 5000);
-        return
-      } else if (!response.body?.messageData) {
-        fetchDeleteReсeivedMessage(response.receiptId);
-      } else if (response.body?.messageData) {
-        fetchDeleteReсeivedMessage(response.receiptId);
-        setDisplayMessage(prevMessages => [...prevMessages, `RECEIVED.${response.body?.messageData.extendedTextMessageData?.text}`]);
-      }
-      // setTimeout(fetchMessages, 5000);
-    })
-    .catch(error => {
-      console.error(error)
-    })
-}
-
 function Chat() {
   const [textMessage, setTextMessage] = useState();
   const [displayMessage, setDisplayMessage] = useState([]);
-  // const [receiptId, setReceiptId] = useState();
+  const [receiptId, setReceiptId] = useState();
   const navigate = useNavigate();
   const inputRef = useRef();
-
-  console.log('mount');
 
   function textInsert(event) {
     const target = event.target.value;
@@ -46,7 +24,9 @@ function Chat() {
     inputRef.current.focus();
     textMessage ?
       fetchSendMessage(textMessage)
-        .then(setDisplayMessage(prevMessages => [...prevMessages, textMessage]))
+        .then(response => {
+          setDisplayMessage(prevMessages => [...prevMessages, textMessage])
+        })
         .catch(error => {
           console.error(error)
         })
@@ -63,9 +43,33 @@ function Chat() {
   }, [])
 
   useEffect(() => {
-    console.log('вызывается в useEffect еще раз');
-    fetchMessages(setDisplayMessage);
-  }, [])
+    const intervalId = setInterval(() => {
+      fetchMessages();
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+
+    function fetchMessages() {
+      fetchReсeiveMessage()
+        .then(response => {
+          if (!response) {
+            return
+          } else if (!response.body?.messageData) {
+            fetchDeleteReсeivedMessage(response.receiptId);
+          } else if (response.body?.messageData) {
+            setDisplayMessage(prevMessages => [...prevMessages, `RECEIVED.${response.body?.messageData.textMessageData?.textMessage}`]);
+            fetchDeleteReсeivedMessage(response.receiptId);
+            setReceiptId(response.receiptId)
+          } else if (response.body.senderData.sender === `${localStorage.getItem('phoneNumber')}@c.us`) {
+            fetchDeleteReсeivedMessage(response.receiptId);
+          }
+        })
+
+        .catch(error => {
+          console.error(error)
+        })
+    }
+  }, [receiptId])
 
   return (
     <div className="container">
@@ -76,10 +80,10 @@ function Chat() {
         </div>
         <form>
           <div className="chatArea">
-            {displayMessage.length > 1 ? (
-              displayMessage.map((message) => (
+            {displayMessage.length > 0 ? (
+              displayMessage.map((message, index) => (
                 <MessageContainer
-                  key={message.index}
+                  key={index}
                   displayMessage={message}
                 />
               ))

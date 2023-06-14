@@ -24,12 +24,10 @@ function Login() {
         event.preventDefault()
         if (idInstance && apiTokenInstance) {
             fetchReсeiveMessage(idInstance, apiTokenInstance)
-                .then(() => {
-                    // if (response) {
+                .then(response => {
                     localStorage.setItem('idInstance', idInstance);
                     localStorage.setItem('apiTokenInstance', apiTokenInstance);
                     navigate('/create-chat')
-                    // }
                 })
                 .catch(error => {
                     console.error(error)
@@ -46,9 +44,9 @@ function Login() {
                 <h2>Login to WhatsApp Chat</h2>
                 <form>
                     <label htmlFor="idInstance">ID Instance:</label>
-                    <input type="text" id="idInstance" name="idInstance" required onChange={idInstanceConfirm} />
+                    <input type="text" placeholder="Введите свой idInstance" required onChange={idInstanceConfirm} />
                     <label htmlFor="apiTokenInstance">API Token Instance:</label>
-                    <input type="text" id="apiTokenInstance" name="apiTokenInstance" required onChange={apiTokenInstanceConfirm} />
+                    <input type="text" placeholder="Введите свой apiTokenInstance" required onChange={apiTokenInstanceConfirm} />
                     <button type="submit" onClick={loginClick}>Login</button>
                 </form>
             </div>
