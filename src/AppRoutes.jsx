@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import Chat from "./Components/chat/Chat";
-import Login from "./Components/login/Login";
-import CreateChat from "./Components/create-chat/CreateChat";
+import { Chat } from "./Components/chat/Chat";
+import {Login} from "./Components/login/Login";
+import { CreateChat } from "./Components/create-chat/CreateChat";
 
 export const AppRoutes = () => {
 
@@ -13,5 +13,3 @@ export const AppRoutes = () => {
         </Routes>
     );
 };
-
-export default AppRoutes;

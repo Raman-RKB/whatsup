@@ -1,29 +1,31 @@
 import React from 'react';
-import './style/CreateChat.css';
+import '../style/LoginAndCreateChat.css';
+import '../style/GlobalStyle.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchCheckPhone } from '../modules/ApiService'
+import { phoneNumberSet } from "../modules/GetDataFromLS";
 import { Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function CreateChat() {
+export const CreateChat = () => {
     const [phoneNumber, setPhoneNumber] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    function insertPhoneNumber(event) {
+    const insertPhoneNumber = (event) => {
         const target = event.target.value;
         setPhoneNumber(target);
     }
 
-    function createChatClick(event) {
+    const createChatClick = (event) => {
         event.preventDefault()
         setIsLoading(true)
         phoneNumber ? (
             fetchCheckPhone(phoneNumber)
                 .then(response => {
                     if (response.existsWhatsapp) {
-                        localStorage.setItem('phoneNumber', phoneNumber);
+                        phoneNumberSet(phoneNumber);
                         navigate('/');
                     } else if (!response.existsWhatsapp) {
                         console.log(response);
@@ -40,7 +42,7 @@ function CreateChat() {
         )
     }
 
-    function stopSpinner() {
+    const stopSpinner = () => {
         alert('Введите номер телефона')
         setIsLoading(false)
     }
@@ -60,5 +62,3 @@ function CreateChat() {
         </div>
     );
 }
-
-export default CreateChat;
