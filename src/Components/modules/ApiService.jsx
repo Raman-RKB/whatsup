@@ -1,14 +1,14 @@
 import { phoneNumber, idInstance, apiTokenInstance } from "./GetDataFromLS";
 const baseUrl = 'https://api.green-api.com';
 
-export function fetchReсeiveMessage(idInstanceProps, apiTokenInstanceProps) {
+export const fetchReсeiveMessage = (idInstanceProps, apiTokenInstanceProps) => {
     const id = idInstance();
     const token = apiTokenInstance();
     return fetch(`${baseUrl}/waInstance${!idInstanceProps ? id : idInstanceProps}/receiveNotification/${!apiTokenInstanceProps ? token : apiTokenInstanceProps}`)
         .then(response => response.json())
 }
 
-export function fetchSendMessage(textmessage) {
+export const fetchSendMessage = (textmessage) => {
     const id = idInstance();
     const token = apiTokenInstance();
     const phone = phoneNumber();
@@ -22,7 +22,7 @@ export function fetchSendMessage(textmessage) {
         .then(response => response.json())
 }
 
-export function fetchCheckPhone(phoneNumberProp) {
+export const fetchCheckPhone = (phoneNumberProp) => {
     const id = idInstance();
     const token = apiTokenInstance();
     return fetch(`${baseUrl}/waInstance${id}/checkWhatsapp/${token}`, {
@@ -34,7 +34,7 @@ export function fetchCheckPhone(phoneNumberProp) {
         .then(response => response.json())
 }
 
-export function fetchDeleteReсeivedMessage(receiptId) {
+export const fetchDeleteReсeivedMessage = (receiptId) => {
     const id = idInstance();
     const token = apiTokenInstance();
     return fetch(`${baseUrl}/waInstance${id}/deleteNotification/${token}/${receiptId}`, {

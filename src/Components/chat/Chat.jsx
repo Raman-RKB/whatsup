@@ -1,24 +1,28 @@
 import React from 'react';
-import './Style/Chat.css';
-import MessageContainer from "../modules/MessageContainer";
-//REWIEV
+import '../style/Chat.css';
+import '../style/GlobalStyle.css';
+import { MessageContainer } from "../modules/MessageContainer";
+import { clearLS, phoneNumber, idInstance } from "../modules/GetDataFromLS";
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchSendMessage, fetchReсeiveMessage, fetchDeleteReсeivedMessage } from '../modules/ApiService'
 
-function Chat() {
+export const Chat = () => {
   const [textMessage, setTextMessage] = useState();
   const [displayMessage, setDisplayMessage] = useState([]);
   const [receiptId, setReceiptId] = useState();
   const navigate = useNavigate();
   const inputRef = useRef();
 
-  function textInsert(event) {
+  const phone = phoneNumber();
+  const id = idInstance();
+
+  const textInsert = (event) => {
     const target = event.target.value;
     setTextMessage(target);
   }
 
-  function sendMessage(event) {
+  const sendMessage = (event) => {
     event.preventDefault()
     inputRef.current.value = '';
     inputRef.current.focus();
@@ -35,31 +39,25 @@ function Chat() {
       alert('введите текст сообщения');
   }
 
-  function changeChat() {
+  const changeChat = () => {
     navigate('/create-chat')
   }
 
-  function escape() {
-    localStorage.clear()
+  const escape = () => {
+    clearLS();
     navigate('/login')
   }
 
   useEffect(() => {
-    if (!localStorage.getItem('idInstance')) {
+    if (!id) {
       navigate('/login');
-    } else if (!localStorage.getItem('phoneNumber')) {
+    } else if (!phone) {
       navigate('/create-chat');
     }
   }, [])
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      fetchMessages();
-    }, 5000);
-
-    return () => clearInterval(intervalId);
-
-    function fetchMessages() {
+    const fetchMessages = () => {
       fetchReсeiveMessage()
         .then(response => {
           if (!response) {
@@ -70,7 +68,7 @@ function Chat() {
             setDisplayMessage(prevMessages => [...prevMessages, `RECEIVED.${response.body?.messageData.textMessageData?.textMessage}`]);
             fetchDeleteReсeivedMessage(response.receiptId);
             setReceiptId(response.receiptId)
-          } else if (response.body.senderData.sender === `${localStorage.getItem('phoneNumber')}@c.us`) {
+          } else if (response.body.senderData.sender === `${phone}@c.us`) {
             fetchDeleteReсeivedMessage(response.receiptId);
           }
         })
@@ -79,6 +77,12 @@ function Chat() {
           alert('Ошибка сети, проверьте ваше подключение к интернету')
         })
     }
+
+    const intervalId = setInterval(() => {
+      fetchMessages();
+    }, 5000);
+
+    return () => clearInterval(intervalId);
   }, [receiptId])
 
   return (
@@ -111,5 +115,3 @@ function Chat() {
     </div>
   );
 }
-
-export default Chat;

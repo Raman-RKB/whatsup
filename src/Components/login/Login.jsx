@@ -1,36 +1,38 @@
 import React from 'react';
-import './style/Login.css';
+import '../style/LoginAndCreateChat.css';
+import '../style/GlobalStyle.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchReсeiveMessage } from '../modules/ApiService'
+import { idInstanceSet, apiTokenInstanceSet } from "../modules/GetDataFromLS";
 import { Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Login() {
+export const Login = () => {
     const [idInstance, setIdInstance] = useState();
     const [apiTokenInstance, setApiTokenInstance] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
-    function idInstanceConfirm(event) {
+    const idInstanceConfirm = (event) => {
         const target = event.target.value;
         setIdInstance(target);
     }
 
-    function apiTokenInstanceConfirm(event) {
+    const apiTokenInstanceConfirm = (event) => {
         const target = event.target.value;
         setApiTokenInstance(target);
     }
 
-    function loginClick(event) {
+    const loginClick = (event) => {
         event.preventDefault()
         setIsLoading(true)
         if (idInstance && apiTokenInstance) {
             fetchReсeiveMessage(idInstance, apiTokenInstance)
                 .then(response => {
-                    localStorage.setItem('idInstance', idInstance);
-                    localStorage.setItem('apiTokenInstance', apiTokenInstance);
+                    idInstanceSet(idInstance);
+                    apiTokenInstanceSet(apiTokenInstance);
                     navigate('/create-chat')
                     setIsLoading(false)
                 })
@@ -61,5 +63,3 @@ function Login() {
         </div>
     );
 }
-
-export default Login;
