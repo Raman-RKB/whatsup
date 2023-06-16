@@ -2,10 +2,12 @@ import React from 'react';
 import '../style/Chat.css';
 import '../style/GlobalStyle.css';
 import { MessageContainer } from "../modules/MessageContainer";
-import { clearLS, phoneNumber, idInstance } from "../modules/GetDataFromLS";
+import { createChat, login } from "../modules/Routers";
+import { clearLS, phoneNumber, idInstance } from "../modules/LSmodule";
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchSendMessage, fetchReсeiveMessage, fetchDeleteReсeivedMessage } from '../modules/ApiService'
+import { Input, Button } from '../modules/InputsButtons'
 
 export const Chat = () => {
   const [textMessage, setTextMessage] = useState();
@@ -40,19 +42,19 @@ export const Chat = () => {
   }
 
   const changeChat = () => {
-    navigate('/create-chat')
+    navigate(createChat)
   }
 
   const escape = () => {
     clearLS();
-    navigate('/login')
+    navigate(login)
   }
 
   useEffect(() => {
     if (!id) {
-      navigate('/login');
+      navigate(login);
     } else if (!phone) {
-      navigate('/create-chat');
+      navigate(createChat);
     }
   }, [])
 
@@ -106,10 +108,17 @@ export const Chat = () => {
             )}
 
           </div>
-          <input type="text" placeholder="Введите сообщение" ref={inputRef} onChange={textInsert} required />
-          <button type="submit" id="send-message" onClick={sendMessage}>Send</button>
-          <button type="submit" id="send-message" onClick={changeChat}>Change Chat</button>
-          <button type="submit" id="send-message" onClick={escape}>Escape</button>
+           {/* <input type="text" placeholder="Введите сообщение" ref={inputRef} onChange={textInsert} required /> */}
+          <Input
+            type={'text'}
+            placeholder={'Введите сообщение'}
+            handler={textInsert}
+            ref={inputRef}
+            required
+          />
+          <Button type={'submit'} handler={sendMessage}>Send</Button>
+          <Button type={'submit'} handler={changeChat}>Change Chat</Button>
+          <Button type={'submit'} handler={escape}>Escape</Button>
         </form>
       </div>
     </div>

@@ -28,3 +28,4 @@ export const apiTokenInstance = () => {
 export const clearLS = () => {
     localStorage.clear()
 }
+
