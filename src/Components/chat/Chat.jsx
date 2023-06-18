@@ -7,7 +7,8 @@ import { clearLS, phoneNumber, idInstance } from "../modules/LSmodule";
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchSendMessage, fetchReсeiveMessage, fetchDeleteReсeivedMessage } from '../modules/ApiService'
-import { Input, Button } from '../modules/InputsButtons'
+import { Input } from '../modules/Inputs'
+import { Button } from '../modules/Buttons'
 
 export const Chat = () => {
   const [textMessage, setTextMessage] = useState();
@@ -108,7 +109,7 @@ export const Chat = () => {
             )}
 
           </div>
-           {/* <input type="text" placeholder="Введите сообщение" ref={inputRef} onChange={textInsert} required /> */}
+          {/* <input type="text" placeholder="Введите сообщение" ref={inputRef} onChange={textInsert} required /> */}
           <Input
             type={'text'}
             placeholder={'Введите сообщение'}
@@ -116,9 +117,9 @@ export const Chat = () => {
             ref={inputRef}
             required
           />
-          <Button type={'submit'} handler={sendMessage}>Send</Button>
-          <Button type={'submit'} handler={changeChat}>Change Chat</Button>
-          <Button type={'submit'} handler={escape}>Escape</Button>
+          <Button type={'submit'} handler={sendMessage} buttonName={'Send'}></Button>
+          <Button type={'submit'} handler={changeChat} buttonName={'Change Chat'}></Button>
+          <Button type={'submit'} handler={escape} buttonName={'Escape'}></Button>
         </form>
       </div>
     </div>
