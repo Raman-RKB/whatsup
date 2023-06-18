@@ -62,7 +62,7 @@ export const CreateChat = () => {
                         handler={insertPhoneNumber}
                         required
                     />
-                    <Button type={'button'} handler={createChatClick}>Create Chat</Button>
+                    <Button type={'button'} handler={createChatClick} buttonName={'Create Chat'}></Button>
                 </form>
             </div>
         </div>

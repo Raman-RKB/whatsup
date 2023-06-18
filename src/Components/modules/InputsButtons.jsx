@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import '../style/MessageContainer.css';
 
-export const Input = forwardRef(({ id, placeholder, type, handler, ref }) => {
+export const Input = forwardRef(({ id, placeholder, type, handler }, ref) => {
 
     return (
         <input
@@ -15,12 +15,14 @@ export const Input = forwardRef(({ id, placeholder, type, handler, ref }) => {
     );
 });
 
-export const Button = forwardRef(({ type, handler }) => {
+export const Button = ({ type, handler, buttonName }) => {
 
     return (
-        <input
+        <button
             type={type}
             onClick={handler}
-        />
+        >
+            {buttonName}
+        </button>
     );
-});
+};

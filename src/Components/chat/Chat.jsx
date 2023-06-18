@@ -108,7 +108,7 @@ export const Chat = () => {
             )}
 
           </div>
-           {/* <input type="text" placeholder="Введите сообщение" ref={inputRef} onChange={textInsert} required /> */}
+          {/* <input type="text" placeholder="Введите сообщение" ref={inputRef} onChange={textInsert} required /> */}
           <Input
             type={'text'}
             placeholder={'Введите сообщение'}
@@ -116,9 +116,9 @@ export const Chat = () => {
             ref={inputRef}
             required
           />
-          <Button type={'submit'} handler={sendMessage}>Send</Button>
-          <Button type={'submit'} handler={changeChat}>Change Chat</Button>
-          <Button type={'submit'} handler={escape}>Escape</Button>
+          <Button type={'submit'} handler={sendMessage} buttonName={'Send'}></Button>
+          <Button type={'submit'} handler={changeChat} buttonName={'Change Chat'}></Button>
+          <Button type={'submit'} handler={escape} buttonName={'Escape'}></Button>
         </form>
       </div>
     </div>

@@ -71,7 +71,7 @@ export const Login = () => {
                         handler={apiTokenInstanceConfirm}
                         required
                     />
-                    <Button type={'submit'} handler={loginClick}>Login</Button>
+                    <Button type={'submit'} handler={loginClick} buttonName={'Login'}></Button>
                 </form>
             </div>
         </div>
