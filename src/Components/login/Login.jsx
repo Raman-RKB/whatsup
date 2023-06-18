@@ -4,7 +4,8 @@ import '../style/GlobalStyle.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchReсeiveMessage } from '../modules/ApiService'
-import { Input, Button } from '../modules/InputsButtons'
+import { Input } from '../modules/Inputs'
+import { Button } from '../modules/Buttons'
 import { createChat } from "../modules/Routers";
 import { idInstanceSet, apiTokenInstanceSet } from "../modules/LSmodule";
 import { Spinner } from 'react-bootstrap';

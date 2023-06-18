@@ -14,15 +14,3 @@ export const Input = forwardRef(({ id, placeholder, type, handler }, ref) => {
         />
     );
 });
-
-export const Button = ({ type, handler, buttonName }) => {
-
-    return (
-        <button
-            type={type}
-            onClick={handler}
-        >
-            {buttonName}
-        </button>
-    );
-};

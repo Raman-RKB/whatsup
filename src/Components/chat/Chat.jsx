@@ -7,7 +7,8 @@ import { clearLS, phoneNumber, idInstance } from "../modules/LSmodule";
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchSendMessage, fetchReсeiveMessage, fetchDeleteReсeivedMessage } from '../modules/ApiService'
-import { Input, Button } from '../modules/InputsButtons'
+import { Input } from '../modules/Inputs'
+import { Button } from '../modules/Buttons'
 
 export const Chat = () => {
   const [textMessage, setTextMessage] = useState();

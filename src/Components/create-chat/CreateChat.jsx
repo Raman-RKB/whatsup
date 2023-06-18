@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchCheckPhone } from '../modules/ApiService'
 import { phoneNumberSet } from "../modules/LSmodule";
-import { Input, Button } from '../modules/InputsButtons'
+import { Input } from '../modules/Inputs'
+import { Button } from '../modules/Buttons'
 import { Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { chat } from '../modules/Routers';
