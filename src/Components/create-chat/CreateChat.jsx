@@ -4,9 +4,11 @@ import '../style/GlobalStyle.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchCheckPhone } from '../modules/ApiService'
-import { phoneNumberSet } from "../modules/GetDataFromLS";
+import { phoneNumberSet } from "../modules/LSmodule";
+import { Input, Button } from '../modules/InputsButtons'
 import { Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { chat } from '../modules/Routers';
 
 export const CreateChat = () => {
     const [phoneNumber, setPhoneNumber] = useState();
@@ -26,7 +28,7 @@ export const CreateChat = () => {
                 .then(response => {
                     if (response.existsWhatsapp) {
                         phoneNumberSet(phoneNumber);
-                        navigate('/');
+                        navigate(chat);
                     } else if (!response.existsWhatsapp) {
                         console.log(response);
                         setIsLoading(false)
@@ -53,12 +55,17 @@ export const CreateChat = () => {
                 {isLoading && <div className="spinner-container"><Spinner animation="border" /></div>}
                 <form>
                     <label htmlFor="recipient">Recipient Phone Number:</label>
-                    <input type="tel"
+                    <Input
+                        type={'tel'}
+                        id={'recipient'}
+                        placeholder={'Введите номер телефона'}
+                        handler={insertPhoneNumber}
                         required
-                        onChange={insertPhoneNumber} />
-                    <button type="button" id="create-chat" onClick={createChatClick}>Create Chat</button>
+                    />
+                    <Button type={'button'} handler={createChatClick}>Create Chat</Button>
                 </form>
             </div>
         </div>
     );
 }
+

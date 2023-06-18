@@ -1,4 +1,4 @@
-import { phoneNumber, idInstance, apiTokenInstance } from "./GetDataFromLS";
+import { phoneNumber, idInstance, apiTokenInstance } from "./LSmodule";
 const baseUrl = 'https://api.green-api.com';
 
 export const fetchReсeiveMessage = (idInstanceProps, apiTokenInstanceProps) => {

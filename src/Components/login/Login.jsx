@@ -4,7 +4,9 @@ import '../style/GlobalStyle.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchReсeiveMessage } from '../modules/ApiService'
-import { idInstanceSet, apiTokenInstanceSet } from "../modules/GetDataFromLS";
+import { Input, Button } from '../modules/InputsButtons'
+import { createChat } from "../modules/Routers";
+import { idInstanceSet, apiTokenInstanceSet } from "../modules/LSmodule";
 import { Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -33,7 +35,7 @@ export const Login = () => {
                 .then(response => {
                     idInstanceSet(idInstance);
                     apiTokenInstanceSet(apiTokenInstance);
-                    navigate('/create-chat')
+                    navigate(createChat)
                     setIsLoading(false)
                 })
                 .catch(error => {
@@ -54,10 +56,22 @@ export const Login = () => {
                 {isLoading && <div className="spinner-container"><Spinner animation="border" /></div>}
                 <form>
                     <label htmlFor="idInstance">ID Instance:</label>
-                    <input type="text" placeholder="Введите свой idInstance" required onChange={idInstanceConfirm} />
+                    <Input
+                        type={'text'}
+                        id={'idInstance'}
+                        placeholder={'Введите свой idInstance'}
+                        handler={idInstanceConfirm}
+                        required
+                    />
                     <label htmlFor="apiTokenInstance">API Token Instance:</label>
-                    <input type="text" placeholder="Введите свой apiTokenInstance" required onChange={apiTokenInstanceConfirm} />
-                    <button type="submit" onClick={loginClick}>Login</button>
+                    <Input
+                        type={'text'}
+                        id={'apiTokenInstance'}
+                        placeholder={'Введите свой apiTokenInstance'}
+                        handler={apiTokenInstanceConfirm}
+                        required
+                    />
+                    <Button type={'submit'} handler={loginClick}>Login</Button>
                 </form>
             </div>
         </div>
