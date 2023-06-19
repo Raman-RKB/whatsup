@@ -1,5 +1,6 @@
 .chat {
   display: block;
+  min-width: 50%;
 }
 
 .chat h2 {
