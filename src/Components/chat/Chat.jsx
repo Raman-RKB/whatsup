@@ -1,14 +1,14 @@
 import React from 'react';
 import '../style/Chat.css';
 import '../style/GlobalStyle.css';
-import { MessageContainer } from "../modules/MessageContainer";
+import { MessageContainer } from "../MessageContainer/MessageContainer";
 import { createChat, login } from "../modules/Routers";
 import { clearLS, phoneNumber, idInstance } from "../modules/LSmodule";
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchSendMessage, fetchReсeiveMessage, fetchDeleteReсeivedMessage } from '../modules/ApiService'
-import { Input } from '../modules/Inputs'
-import { Button } from '../modules/Buttons'
+import { Input } from '../inputs/Inputs'
+import { Button } from '../Buttons/Buttons'
 
 export const Chat = () => {
   const [textMessage, setTextMessage] = useState();
